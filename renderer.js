@@ -1,6 +1,6 @@
 const Realm = require("realm");
-// const app = new Realm.App({ id: "<Your App ID>" }); // create a new instance of the Realm.App
-const app = new Realm.App({ id: "electron-tester-qokcs" }); // create a new instance of the Realm.App
+const BSON = require("BSON");
+const app = new Realm.App({ id: "<Your App ID>" }); // create a new instance of the Realm.App
 
 async function run() {
 
@@ -10,23 +10,40 @@ async function run() {
   const DogSchema = {
       name: "Dog",
       properties: {
-        _id: 'int',
+        _id: 'objectId',
         name: "string",
         age: "int",
       },
       primaryKey: '_id'
   };
 
-  const realm = await Realm.open({
-    schema: [DogSchema],
-    sync: {
-      user: app.currentUser,
-      partitionValue: "myPartition",
-    },
-  });
+//   const realm = await Realm.open({
+//     schema: [DogSchema],
+//     sync: {
+//       user: app.currentUser,
+//       partitionValue: "myPartition",
+//     },
+//   });
 
-  // The myPartition realm is now synced to the device. You can
-  // access it through the `realm` object returned by `Realm.open()`
+const config = {
+    path: "my.realm",
+    schema: [DogSchema],
+    sync: true,
+  };
+
+
+  const realm = new Realm(config);
+  const dogs = realm.objects("Dog");
+  console.log(`Renderer: Number of Dog objects: ${dogs.length}`);
+
+  realm.write(() => {
+    realm.create("Dog", {
+        _id: new BSON.ObjectID(),
+        name: "Fido",
+        age: 2
+    })
+  })
+
 }
 run().catch(err => {
   console.error("Failed to open realm:", err)
