@@ -1,0 +1,26 @@
+{
+  "name": "electron-advanced-quickstart",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mongomoe/electron-advanced-quickstart.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mongomoe/electron-advanced-quickstart/issues"
+  },
+  "homepage": "https://github.com/mongomoe/electron-advanced-quickstart#readme",
+  "devDependencies": {
+    "electron": "^11.2.0"
+  },
+  "dependencies": {
+    "realm": "^10.1.3"
+  }
+}
